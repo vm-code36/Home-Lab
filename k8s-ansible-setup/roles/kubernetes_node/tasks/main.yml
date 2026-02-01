@@ -1,0 +1,73 @@
+---
+- name: Ensure /etc/apt/keyrings exists
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+
+- name: Add Kubernetes apt key (dearmored)
+  ansible.builtin.shell: |
+    set -euo pipefail
+    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_minor }}/deb/Release.key \
+      | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  args:
+    creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+- name: Add Kubernetes apt repository
+  ansible.builtin.copy:
+    dest: /etc/apt/sources.list.d/kubernetes.list
+    mode: "0644"
+    content: |
+      deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_minor }}/deb/ /
+
+- name: apt update
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Determine exact Kubernetes package version (kubeadm) from apt-cache madison
+  ansible.builtin.shell: |
+    set -euo pipefail
+    apt-cache madison kubeadm | awk -F'|' '/{{ kubernetes_madison_match }}/ {gsub(/ /,"",$2); print $2; exit}'
+  register: kube_install_ver
+  changed_when: false
+
+- name: Fail if kube version could not be resolved
+  ansible.builtin.fail:
+    msg: "Could not resolve kubeadm version via apt-cache madison. Check repo/versions."
+  when: kube_install_ver.stdout | length == 0
+
+- name: Install kubeadm, kubelet, kubectl with exact version
+  ansible.builtin.apt:
+    name:
+      - "kubeadm={{ kube_install_ver.stdout }}"
+      - "kubelet={{ kube_install_ver.stdout }}"
+      - "kubectl={{ kube_install_ver.stdout }}"
+    state: present
+
+- name: Hold kube packages (prevent upgrades)
+  ansible.builtin.command: "apt-mark hold kubelet kubeadm kubectl"
+  changed_when: false
+
+- name: Compute node IP from interface
+  ansible.builtin.set_fact:
+    kubelet_node_ip: "{{ hostvars[inventory_hostname]['ansible_' + kubelet_node_ip_interface]['ipv4']['address'] }}"
+  when: hostvars[inventory_hostname].get('ansible_' + kubelet_node_ip_interface) is not none
+
+- name: Fallback node IP to default ipv4 if interface not found
+  ansible.builtin.set_fact:
+    kubelet_node_ip: "{{ ansible_default_ipv4.address }}"
+  when: kubelet_node_ip is not defined or kubelet_node_ip | length == 0
+
+- name: Set kubelet node-ip extra args
+  ansible.builtin.copy:
+    dest: /etc/default/kubelet
+    mode: "0644"
+    content: |
+      KUBELET_EXTRA_ARGS=--node-ip={{ kubelet_node_ip }}
+  notify: Restart kubelet
+
+- name: Enable kubelet (it will stay in crashloop until joined; that's OK)
+  ansible.builtin.systemd:
+    name: kubelet
+    enabled: true
+    state: started

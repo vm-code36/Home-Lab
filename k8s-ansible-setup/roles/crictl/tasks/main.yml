@@ -1,0 +1,23 @@
+---
+- name: Download crictl tarball
+  ansible.builtin.get_url:
+    url: "https://github.com/kubernetes-sigs/cri-tools/releases/download/{{ crictl_version }}/crictl-{{ crictl_version }}-linux-amd64.tar.gz"
+    dest: "/tmp/crictl-{{ crictl_version }}-linux-amd64.tar.gz"
+    mode: "0644"
+
+- name: Install crictl binary to /usr/local/bin
+  ansible.builtin.unarchive:
+    src: "/tmp/crictl-{{ crictl_version }}-linux-amd64.tar.gz"
+    dest: /usr/local/bin
+    remote_src: true
+    creates: /usr/local/bin/crictl
+
+- name: Configure crictl to use containerd
+  ansible.builtin.copy:
+    dest: /etc/crictl.yaml
+    mode: "0644"
+    content: |
+      runtime-endpoint: unix:///run/containerd/containerd.sock
+      image-endpoint: unix:///run/containerd/containerd.sock
+      timeout: 10
+      debug: false
