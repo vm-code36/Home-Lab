@@ -5,47 +5,66 @@
     state: directory
     mode: "0755"
 
-- name: Add Kubernetes apt key (dearmored)
-  ansible.builtin.shell: |
-    set -euo pipefail
-    curl -fsSL https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_minor }}/deb/Release.key \
-      | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+- name: Download Kubernetes Release.key (ASCII)
+  ansible.builtin.get_url:
+    url: "https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_minor }}/deb/Release.key"
+    dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
+    mode: "0644"
+
+- name: Dearmor Kubernetes apt key
+  ansible.builtin.command: >
+    gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg /etc/apt/keyrings/kubernetes-apt-keyring.asc
   args:
     creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
-- name: Add Kubernetes apt repository
-  ansible.builtin.copy:
-    dest: /etc/apt/sources.list.d/kubernetes.list
+- name: Ensure Kubernetes key is world-readable
+  ansible.builtin.file:
+    path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
     mode: "0644"
-    content: |
-      deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_minor }}/deb/ /
 
-- name: apt update
-  ansible.builtin.apt:
+- name: Add Kubernetes apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ kubernetes_major_minor }}/deb/ /"
+    filename: kubernetes
+    state: present
     update_cache: true
 
 - name: Determine exact Kubernetes package version (kubeadm) from apt-cache madison
-  ansible.builtin.shell: |
-    set -euo pipefail
-    apt-cache madison kubeadm | awk -F'|' '/{{ kubernetes_madison_match }}/ {gsub(/ /,"",$2); print $2; exit}'
-  register: kube_install_ver
+  ansible.builtin.command: apt-cache madison kubeadm
+  register: kubeadm_madison
   changed_when: false
+
+- name: Extract Kubernetes install version from madison output
+  ansible.builtin.set_fact:
+    kube_install_ver: >-
+      {{
+        (kubeadm_madison.stdout_lines
+          | select('search', kubernetes_madison_match)
+          | list
+          | first
+        ).split('|')[1] | trim
+      }}
+  when: (kubeadm_madison.stdout_lines | select('search', kubernetes_madison_match) | list | length) > 0
+
+- name: Debug resolved Kubernetes package version
+  ansible.builtin.debug:
+    msg: "Resolved kube version = {{ kube_install_ver }}"
 
 - name: Fail if kube version could not be resolved
   ansible.builtin.fail:
     msg: "Could not resolve kubeadm version via apt-cache madison. Check repo/versions."
-  when: kube_install_ver.stdout | length == 0
+  when: kube_install_ver is not defined or kube_install_ver | length == 0
 
 - name: Install kubeadm, kubelet, kubectl with exact version
   ansible.builtin.apt:
     name:
-      - "kubeadm={{ kube_install_ver.stdout }}"
-      - "kubelet={{ kube_install_ver.stdout }}"
-      - "kubectl={{ kube_install_ver.stdout }}"
+      - "kubeadm={{ kube_install_ver }}"
+      - "kubelet={{ kube_install_ver }}"
+      - "kubectl={{ kube_install_ver }}"
     state: present
 
 - name: Hold kube packages (prevent upgrades)
-  ansible.builtin.command: "apt-mark hold kubelet kubeadm kubectl"
+  ansible.builtin.command: apt-mark hold kubelet kubeadm kubectl
   changed_when: false
 
 - name: Compute node IP from interface
@@ -71,3 +90,4 @@
     name: kubelet
     enabled: true
     state: started
+
