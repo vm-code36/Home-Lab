@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: test-pod
+  name: test-pod
+spec:
+  containers:
+  - image: nginx:latest
+    imagePullPolicy: Always
+    name: new-pod
+

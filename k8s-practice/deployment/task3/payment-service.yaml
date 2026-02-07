@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: "2026-02-03T16:35:25Z"
+  generation: 1
+  labels:
+    app: payment-service
+  name: payment-service
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 5
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: payment-service
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: payment-service
+    spec:
+      containers:
+      - image: nginx:1.26
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        resources: {}
+      restartPolicy: Always

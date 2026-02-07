@@ -1,0 +1,627 @@
+Script started on 2026-02-04 18:58:46+00:00 [TERM="xterm-256color" TTY="/dev/pts/1" COLUMNS="105" LINES="75"]
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl run [K[K[K[K[K[K[K[K[K[K[K[K# ===POD Practice===
+[?2004l[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# # Below command will run pod [C[1@c[1@r[1@e[1@a[1@t[1@e[1@ [1P[1P[1P[1P[1P[1P[1P[1P[1@ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P[1P[1P[1P[C[1@ [1@c[1@r[1@e[1@a[1@t[1@e[C[C[C[C[Cand ran [Ks container it [K[Kn it 
+[?2004l[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl run new-pod --image=pod[K[K[Knginx:latest
+[?2004lpod/new-pod created
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl get o[Kpods
+[?2004lNAME      READY   STATUS    RESTARTS   AGE
+new-pod   1/1     Running   0          16s
+nginx     1/1     Running   0          8m26s
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# # instead of runing pods using adhoc commands t[Kwe should use config  files [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C config f[1P[A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C config fi[1P[A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C config fil[1P[A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cd config fi[1@l[A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ce config f[1@i[A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cf config [1@f[A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci config[1@ [A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cn confi[1@g[A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ce conf[1@i[A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C con[1@f[A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cp co[1@n[A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Co c[1@o[A]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cd [1@c[C[C[C[C[C[C[C[C[C[C[C[C[C[C w i h [1P t h [C a l l [C t h e [C r e q u i r e d [C [K[1P [1P [1P [1P [1P u i r e d [C d a t a 
+[?2004l[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# # kubectl create command hel[K[K[K[K dry c[Krun will help us to config files for  any kubere[Knetes resources [K
+[?2004l[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl create --help
+[?2004lCreate a resource from a file or from stdin.
+
+ JSON and YAML formats are accepted.
+
+Examples:
+  # Create a pod using the data in pod.json
+  kubectl create -f ./pod.json
+  
+  # Create a pod based on the JSON passed into stdin
+  cat pod.json | kubectl create -f -
+  
+  # Edit the data in registry.yaml in JSON then create the resource using the edited data
+  kubectl create -f registry.yaml --edit -o json
+
+Available Commands:
+  clusterrole           Create a cluster role
+  clusterrolebinding    Create a cluster role binding for a particular cluster role
+  configmap             Create a config map from a local file, directory or literal value
+  cronjob               Create a cron job with the specified name
+  deployment            Create a deployment with the specified name
+  ingress               Create an ingress with the specified name
+  job                   Create a job with the specified name
+  namespace             Create a namespace with the specified name
+  poddisruptionbudget   Create a pod disruption budget with the specified name
+  priorityclass         Create a priority class with the specified name
+  quota                 Create a quota with the specified name
+  role                  Create a role with single rule
+  rolebinding           Create a role binding for a particular role or cluster role
+  secret                Create a secret using a specified subcommand
+  service               Create a service using a specified subcommand
+  serviceaccount        Create a service account with the specified name
+  token                 Request a service account token
+
+Options:
+    --allow-missing-template-keys=true:
+	If true, ignore any errors in templates when a field or map key is missing in the
+	template. Only applies to golang and jsonpath output formats.
+
+    --dry-run='none':
+	Must be "none", "server", or "client". If client strategy, only print the object that
+	would be sent, without sending it. If server strategy, submit server-side request without
+	persisting the resource.
+
+    --edit=false:
+	Edit the API resource before creating
+
+    --field-manager='kubectl-create':
+	Name of the manager used to track field ownership.
+
+    -f, --filename=[]:
+	Filename, directory, or URL to files to use to create the resource
+
+    -k, --kustomize='':
+	Process the kustomization directory. This flag can't be used together with -f or -R.
+
+    -o, --output='':
+	Output format. One of: (json, yaml, name, go-template, go-template-file, template,
+	templatefile, jsonpath, jsonpath-as-json, jsonpath-file).
+
+    --raw='':
+	Raw URI to POST to the server.  Uses the transport specified by the kubeconfig file.
+
+    -R, --recursive=false:
+	Process the directory used in -f, --filename recursively. Useful when you want to manage
+	related manifests organized within the same directory.
+
+    --save-config=false:
+	If true, the configuration of current object will be saved in its annotation. Otherwise,
+	the annotation will be unchanged. This flag is useful when you want to perform kubectl
+	apply on this object in the future.
+
+    -l, --selector='':
+	Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l
+	key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the
+	specified label constraints.
+
+    --show-managed-fields=false:
+	If true, keep the managedFields when printing objects in JSON or YAML format.
+
+    --template='':
+	Template string or path to template file to use when -o=go-template, -o=go-template-file.
+	The template format is golang templates
+	[http://golang.org/pkg/text/template/#pkg-overview].
+
+    --validate='strict':
+	Must be one of: strict (or true), warn, ignore (or false). "true" or "strict" will use a
+	schema to validate the input and fail the request if invalid. It will perform server side
+	validation if ServerSideFieldValidation is enabled on the api-server, but will fall back
+	to less reliable client-side validation if not. "warn" will warn about unknown or
+	duplicate fields without blocking the request if server-side field validation is enabled
+	on the API server, and behave as "ignore" otherwise. "false" or "ignore" will not perform
+	any schema validation, silently dropping any unknown or duplicate fields.
+
+    --windows-line-endings=false:
+	Only relevant if --edit=true. Defaults to the line ending native to your platform.
+
+Usage:
+  kubectl create -f FILENAME [options]
+
+Use "kubectl create <command> --help" for more information about a given command.
+Use "kubectl options" for a list of global command-line options (applies to all commands).
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl create pod --image=nginx[K[K[K[K[Khttpd:lates --dry-run [K=client -o yaml
+[?2004lerror: unknown flag: --image
+See 'kubectl create --help' for usage.
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl create pod --image=httpd:lates --dry-run=client -o yaml[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kkubectl [K[K[K[K[K[K[K[Kvi [K[K[Kkubectl [K[K[K[K[K[K[K[K#lest[1Pt[Cs check how to [K[K[K[K[K[K[Khow many resoutc[K[Krces kuberen[K[Knetes can work
+[?2004l[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl api [K-resources
+[?2004lNAME                                SHORTNAMES                                      APIVERSION                          NAMESPACED   KIND
+bindings                                                                            v1                                  true         Binding
+componentstatuses                   cs                                              v1                                  false        ComponentStatus
+configmaps                          cm                                              v1                                  true         ConfigMap
+endpoints                           ep                                              v1                                  true         Endpoints
+events                              ev                                              v1                                  true         Event
+limitranges                         limits                                          v1                                  true         LimitRange
+namespaces                          ns                                              v1                                  false        Namespace
+nodes                               no                                              v1                                  false        Node
+persistentvolumeclaims              pvc                                             v1                                  true         PersistentVolumeClaim
+persistentvolumes                   pv                                              v1                                  false        PersistentVolume
+pods                                po                                              v1                                  true         Pod
+podtemplates                                                                        v1                                  true         PodTemplate
+replicationcontrollers              rc                                              v1                                  true         ReplicationController
+resourcequotas                      quota                                           v1                                  true         ResourceQuota
+secrets                                                                             v1                                  true         Secret
+serviceaccounts                     sa                                              v1                                  true         ServiceAccount
+services                            svc                                             v1                                  true         Service
+mutatingwebhookconfigurations                                                       admissionregistration.k8s.io/v1     false        MutatingWebhookConfiguration
+validatingadmissionpolicies                                                         admissionregistration.k8s.io/v1     false        ValidatingAdmissionPolicy
+validatingadmissionpolicybindings                                                   admissionregistration.k8s.io/v1     false        ValidatingAdmissionPolicyBinding
+validatingwebhookconfigurations                                                     admissionregistration.k8s.io/v1     false        ValidatingWebhookConfiguration
+customresourcedefinitions           crd,crds                                        apiextensions.k8s.io/v1             false        CustomResourceDefinition
+apiservices                                                                         apiregistration.k8s.io/v1           false        APIService
+controllerrevisions                                                                 apps/v1                             true         ControllerRevision
+daemonsets                          ds                                              apps/v1                             true         DaemonSet
+deployments                         deploy                                          apps/v1                             true         Deployment
+replicasets                         rs                                              apps/v1                             true         ReplicaSet
+statefulsets                        sts                                             apps/v1                             true         StatefulSet
+selfsubjectreviews                                                                  authentication.k8s.io/v1            false        SelfSubjectReview
+tokenreviews                                                                        authentication.k8s.io/v1            false        TokenReview
+localsubjectaccessreviews                                                           authorization.k8s.io/v1             true         LocalSubjectAccessReview
+selfsubjectaccessreviews                                                            authorization.k8s.io/v1             false        SelfSubjectAccessReview
+selfsubjectrulesreviews                                                             authorization.k8s.io/v1             false        SelfSubjectRulesReview
+subjectaccessreviews                                                                authorization.k8s.io/v1             false        SubjectAccessReview
+horizontalpodautoscalers            hpa                                             autoscaling/v2                      true         HorizontalPodAutoscaler
+cronjobs                            cj                                              batch/v1                            true         CronJob
+jobs                                                                                batch/v1                            true         Job
+certificatesigningrequests          csr                                             certificates.k8s.io/v1              false        CertificateSigningRequest
+leases                                                                              coordination.k8s.io/v1              true         Lease
+bgpconfigurations                                                                   crd.projectcalico.org/v1            false        BGPConfiguration
+bgpfilters                                                                          crd.projectcalico.org/v1            false        BGPFilter
+bgppeers                                                                            crd.projectcalico.org/v1            false        BGPPeer
+blockaffinities                                                                     crd.projectcalico.org/v1            false        BlockAffinity
+caliconodestatuses                                                                  crd.projectcalico.org/v1            false        CalicoNodeStatus
+clusterinformations                                                                 crd.projectcalico.org/v1            false        ClusterInformation
+felixconfigurations                                                                 crd.projectcalico.org/v1            false        FelixConfiguration
+globalnetworkpolicies                                                               crd.projectcalico.org/v1            false        GlobalNetworkPolicy
+globalnetworksets                                                                   crd.projectcalico.org/v1            false        GlobalNetworkSet
+hostendpoints                                                                       crd.projectcalico.org/v1            false        HostEndpoint
+ipamblocks                                                                          crd.projectcalico.org/v1            false        IPAMBlock
+ipamconfigs                                                                         crd.projectcalico.org/v1            false        IPAMConfig
+ipamhandles                                                                         crd.projectcalico.org/v1            false        IPAMHandle
+ippools                                                                             crd.projectcalico.org/v1            false        IPPool
+ipreservations                                                                      crd.projectcalico.org/v1            false        IPReservation
+kubecontrollersconfigurations                                                       crd.projectcalico.org/v1            false        KubeControllersConfiguration
+networkpolicies                                                                     crd.projectcalico.org/v1            true         NetworkPolicy
+networksets                                                                         crd.projectcalico.org/v1            true         NetworkSet
+stagedglobalnetworkpolicies                                                         crd.projectcalico.org/v1            false        StagedGlobalNetworkPolicy
+stagedkubernetesnetworkpolicies                                                     crd.projectcalico.org/v1            true         StagedKubernetesNetworkPolicy
+stagednetworkpolicies                                                               crd.projectcalico.org/v1            true         StagedNetworkPolicy
+tiers                                                                               crd.projectcalico.org/v1            false        Tier
+endpointslices                                                                      discovery.k8s.io/v1                 true         EndpointSlice
+events                              ev                                              events.k8s.io/v1                    true         Event
+flowschemas                                                                         flowcontrol.apiserver.k8s.io/v1     false        FlowSchema
+prioritylevelconfigurations                                                         flowcontrol.apiserver.k8s.io/v1     false        PriorityLevelConfiguration
+nodes                                                                               metrics.k8s.io/v1beta1              false        NodeMetrics
+pods                                                                                metrics.k8s.io/v1beta1              true         PodMetrics
+ingressclasses                                                                      networking.k8s.io/v1                false        IngressClass
+ingresses                           ing                                             networking.k8s.io/v1                true         Ingress
+ipaddresses                         ip                                              networking.k8s.io/v1                false        IPAddress
+networkpolicies                     netpol                                          networking.k8s.io/v1                true         NetworkPolicy
+servicecidrs                                                                        networking.k8s.io/v1                false        ServiceCIDR
+runtimeclasses                                                                      node.k8s.io/v1                      false        RuntimeClass
+apiservers                                                                          operator.tigera.io/v1               false        APIServer
+gatewayapis                                                                         operator.tigera.io/v1               false        GatewayAPI
+goldmanes                                                                           operator.tigera.io/v1               false        Goldmane
+imagesets                                                                           operator.tigera.io/v1               false        ImageSet
+installations                                                                       operator.tigera.io/v1               false        Installation
+managementclusterconnections                                                        operator.tigera.io/v1               false        ManagementClusterConnection
+tigerastatuses                                                                      operator.tigera.io/v1               false        TigeraStatus
+whiskers                                                                            operator.tigera.io/v1               false        Whisker
+poddisruptionbudgets                pdb                                             policy/v1                           true         PodDisruptionBudget
+adminnetworkpolicies                anp                                             policy.networking.k8s.io/v1alpha1   false        AdminNetworkPolicy
+baselineadminnetworkpolicies        banp                                            policy.networking.k8s.io/v1alpha1   false        BaselineAdminNetworkPolicy
+bgpconfigurations                   bgpconfig,bgpconfigs                            projectcalico.org/v3                false        BGPConfiguration
+bgpfilters                                                                          projectcalico.org/v3                false        BGPFilter
+bgppeers                                                                            projectcalico.org/v3                false        BGPPeer
+blockaffinities                     blockaffinity,affinity,affinities               projectcalico.org/v3                false        BlockAffinity
+caliconodestatuses                  caliconodestatus                                projectcalico.org/v3                false        CalicoNodeStatus
+clusterinformations                 clusterinfo                                     projectcalico.org/v3                false        ClusterInformation
+felixconfigurations                 felixconfig,felixconfigs                        projectcalico.org/v3                false        FelixConfiguration
+globalnetworkpolicies               gnp,cgnp,calicoglobalnetworkpolicies            projectcalico.org/v3                false        GlobalNetworkPolicy
+globalnetworksets                                                                   projectcalico.org/v3                false        GlobalNetworkSet
+hostendpoints                       hep,heps                                        projectcalico.org/v3                false        HostEndpoint
+ipamconfigurations                  ipamconfig                                      projectcalico.org/v3                false        IPAMConfiguration
+ippools                                                                             projectcalico.org/v3                false        IPPool
+ipreservations                                                                      projectcalico.org/v3                false        IPReservation
+kubecontrollersconfigurations       kcconfig                                        projectcalico.org/v3                false        KubeControllersConfiguration
+networkpolicies                     cnp,caliconetworkpolicy,caliconetworkpolicies   projectcalico.org/v3                true         NetworkPolicy
+networksets                         netsets                                         projectcalico.org/v3                true         NetworkSet
+profiles                                                                            projectcalico.org/v3                false        Profile
+stagedglobalnetworkpolicies         sgnp                                            projectcalico.org/v3                false        StagedGlobalNetworkPolicy
+stagedkubernetesnetworkpolicies     sknp                                            projectcalico.org/v3                true         StagedKubernetesNetworkPolicy
+stagednetworkpolicies               snp                                             projectcalico.org/v3                true         StagedNetworkPolicy
+tiers                                                                               projectcalico.org/v3                false        Tier
+clusterrolebindings                                                                 rbac.authorization.k8s.io/v1        false        ClusterRoleBinding
+clusterroles                                                                        rbac.authorization.k8s.io/v1        false        ClusterRole
+rolebindings                                                                        rbac.authorization.k8s.io/v1        true         RoleBinding
+roles                                                                               rbac.authorization.k8s.io/v1        true         Role
+deviceclasses                                                                       resource.k8s.io/v1                  false        DeviceClass
+resourceclaims                                                                      resource.k8s.io/v1                  true         ResourceClaim
+resourceclaimtemplates                                                              resource.k8s.io/v1                  true         ResourceClaimTemplate
+resourceslices                                                                      resource.k8s.io/v1                  false        ResourceSlice
+priorityclasses                     pc                                              scheduling.k8s.io/v1                false        PriorityClass
+csidrivers                                                                          storage.k8s.io/v1                   false        CSIDriver
+csinodes                                                                            storage.k8s.io/v1                   false        CSINode
+csistoragecapacities                                                                storage.k8s.io/v1                   true         CSIStorageCapacity
+storageclasses                      sc                                              storage.k8s.io/v1                   false        StorageClass
+volumeattachments                                                                   storage.k8s.io/v1                   false        VolumeAttachment
+volumeattributesclasses             vac                                             storage.k8s.io/v1                   false        VolumeAttributesClass
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# # lests [K[K[K[Kts start working with pods
+[?2004l[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl api-resout[Krces | grep pods
+[?2004l[01;31m[Kpods[m[K                                po                                              v1                                  true         Pod
+[01;31m[Kpods[m[K                                                                                metrics.k8s.io/v1beta1              true         PodMetrics
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# # the above command shows name, shortname [K, version, Kind for pod
+[?2004l[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# # letrs[K[Ks create sample pod definit[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kheck currn[Kent pod definitui[K[Kion [K[K[K[K[K[K[K[K[K[Kefintion c[Kgrenerated based on kubectl run command
+[?2004l[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl descric[Kbe pod new-pod
+[?2004lName:             new-pod
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             k3sworker1/192.168.1.129
+Start Time:       Wed, 04 Feb 2026 19:00:54 +0000
+Labels:           run=new-pod
+Annotations:      cni.projectcalico.org/containerID: 412a7558d1006712f68b2b7cb687d66a8713c1834a4f6808b30ed76b4c45b4cd
+                  cni.projectcalico.org/podIP: 10.244.94.143/32
+                  cni.projectcalico.org/podIPs: 10.244.94.143/32
+Status:           Running
+IP:               10.244.94.143
+IPs:
+  IP:  10.244.94.143
+Containers:
+  new-pod:
+    Container ID:   containerd://2289216aa3b2524ba6f5d97a0c1c052350606c59c1a22851e5a768ff281d7234
+    Image:          nginx:latest
+    Image ID:       docker.io/library/nginx@sha256:9dd288848f4495869f76676e419ae2d767ca99fece2ec37ec0261f9fdaab5204
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Wed, 04 Feb 2026 19:00:55 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-cjjnp (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-cjjnp:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  11m   default-scheduler  Successfully assigned default/new-pod to k3sworker1
+  Normal  Pulling    11m   kubelet            Pulling image "nginx:latest"
+  Normal  Pulled     11m   kubelet            Successfully pulled image "nginx:latest" in 598ms (598ms including waiting). Image size: 62875466 bytes.
+  Normal  Created    11m   kubelet            Created container: new-pod
+  Normal  Started    11m   kubelet            Started container new-pod
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# [K]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl describe pod new-pod# lets check current pod defintion grenerated based on kubectl run command[C[C[C[C[C[C, which stire[K[K[Kored in ect[K[Ktcd 
+[?2004l[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl get pod new-pod -o yaml
+[?2004lapiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/containerID: 412a7558d1006712f68b2b7cb687d66a8713c1834a4f6808b30ed76b4c45b4cd
+    cni.projectcalico.org/podIP: 10.244.94.143/32
+    cni.projectcalico.org/podIPs: 10.244.94.143/32
+  creationTimestamp: "2026-02-04T19:00:54Z"
+  generation: 1
+  labels:
+    run: new-pod
+  name: new-pod
+  namespace: default
+  resourceVersion: "405451"
+  uid: a93440bf-ad77-4d21-9602-d049c0610541
+spec:
+  containers:
+  - image: nginx:latest
+    imagePullPolicy: Always
+    name: new-pod
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-cjjnp
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: k3sworker1
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-cjjnp
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2026-02-04T19:00:55Z"
+    observedGeneration: 1
+    status: "True"
+    type: PodReadyToStartContainers
+  - lastProbeTime: null
+    lastTransitionTime: "2026-02-04T19:00:54Z"
+    observedGeneration: 1
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2026-02-04T19:00:55Z"
+    observedGeneration: 1
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2026-02-04T19:00:55Z"
+    observedGeneration: 1
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2026-02-04T19:00:54Z"
+    observedGeneration: 1
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://2289216aa3b2524ba6f5d97a0c1c052350606c59c1a22851e5a768ff281d7234
+    image: docker.io/library/nginx:latest
+    imageID: docker.io/library/nginx@sha256:9dd288848f4495869f76676e419ae2d767ca99fece2ec37ec0261f9fdaab5204
+    lastState: {}
+    name: new-pod
+    ready: true
+    resources: {}
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2026-02-04T19:00:55Z"
+    user:
+      linux:
+        gid: 0
+        supplementalGroups:
+        - 0
+        uid: 0
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-cjjnp
+      readOnly: true
+      recursiveReadOnly: Disabled
+  hostIP: 192.168.1.129
+  hostIPs:
+  - ip: 192.168.1.129
+  observedGeneration: 1
+  phase: Running
+  podIP: 10.244.94.143
+  podIPs:
+  - ip: 10.244.94.143
+  qosClass: BestEffort
+  startTime: "2026-02-04T19:00:54Z"
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# # so we can get the[K[K[K[K[K[K[K[K[K[K[K[K are going to create new pod for [K[K[K[Kbased on [K[K[K[K[K[K[K[K[K[K ddefi[K[K[K[Kefinition file
+[?2004l[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl get pod-practice.log [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksudo vi pod[K[K[Knew-pod.yaml[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kbefore thats[K lets clean up old pods[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksudo[Ko vi define-pod [K.yaml[C[1P.yaml[1P.yaml[1P.yamln.yamlg.yamli.yamln.yamlc.yaml[1P.yamlx.yaml-.yamlp.yamlo.yamld.yaml
+[?2004l[?1049h[22;0;0t[>4;2m[?1h=[?2004h[?1004h[1;75r[?12h[?12l[22;2t[22;1t[27m[23m[29m[m[H[2J[?25l[75;1H"define-nginx-pod.yaml" [New][2;1H▽[6n[2;1H  [3;1HPzz\[0%m[6n[3;1H           [1;1H[>c]10;?]11;?[2;1H[94m~                                                                                                         [3;1H~                                                                                                         [4;1H~                                                                                                         [5;1H~                                                                                                         [6;1H~                                                                                                         [7;1H~                                                                                                         [8;1H~                                                                                                         [9;1H~                                                                                                         [10;1H~                                                                                                         [11;1H~                                                                                                         [12;1H~                                                                                                         [13;1H~                                                                                                         [14;1H~                                                                                                         [15;1H~                                                                                                         [16;1H~                                                                                                         [17;1H~                                                                                                         [18;1H~                                                                                                         [19;1H~                                                                                                         [20;1H~                                                                                                         [21;1H~                                                                                                         [22;1H~                                                                                                         [23;1H~                                                                                                         [24;1H~                                                                                                         [25;1H~                                                                                                         [26;1H~                                                                                                         [27;1H~                                                                                                         [28;1H~                                                                                                         [29;1H~                                                                                                         [30;1H~                                                                                                         [31;1H~                                                                                                         [32;1H~                                                                                                         [33;1H~                                                                                                         [34;1H~                                                                                                         [35;1H~                                                                                                         [36;1H~                                                                                                         [37;1H~                                                                                                         [38;1H~                                                                                                         [39;1H~                                                                                                         [40;1H~                                                                                                         [41;1H~                                                                                                         [42;1H~                                                                                                         [43;1H~                                                                                                         [44;1H~                                                                                                         [45;1H~                                                                                                         [46;1H~                                                                                                         [47;1H~                                                                                                         [48;1H~                                                                                                         [49;1H~                                                                                                         [50;1H~                                                                                                         [51;1H~                                                                                                         [52;1H~                                                                                                         [53;1H~                                                                                                         [54;1H~                                                                                                         [55;1H~                                                                                                         [56;1H~                                                                                                         [57;1H~                                                                                                         [58;1H~                                                                                                         [59;1H~                                                                                                         [60;1H~                                                                                                         [61;1H~                                                                                                         [62;1H~                                                                                                         [63;1H~                                                                                                         [64;1H~                                                                                                         [65;1H~                                                                                                         [66;1H~                                                                                                         [67;1H~                                                                                                         [68;1H~                                                                                                         [69;1H~                                                                                                         [70;1H~                                                                                                         [71;1H~                                                                                                         [72;1H~                                                                                                         [73;1H~                                                                                                         [74;1H~                                                                                                         [m[75;89H0,0-1[9CAll[1;1H[?25h[?4m[?25l[75;1H[1m-- INSERT --[m[75;13H[K[75;89H0,1[11CAll[1;1H[36mapiVersion[m[35m:[m v1
+[36mkind[m[35m:[m Pod[2;10H[K[3;1H[36mmetadata[m[35m:[m[3;10H[K[4;1H  [36mannotations[m[35m:[m[4;15H[K[5;1H    cni.project[5;16H[K[5;16H[?25h[?25l    [36mcni.projectcalico.org/containerID[m[35m:[m 412a7558d1006712f68b2b7cb687d66a8713c1834a4f[?25h[?25l6808b30ed76b4c45b4cd
+    [36mcni.projectcalico.org/podIP[m[35m:[m 10.244.94.143[6;47H[K[6;47H[?25h[?25l/32
+    [36mcni.projectcalico.org/podIPs[m[35m:[m 10.244.94.143/32[7;51H[K[8;1H  creation[8;11H[K[8;11H[?25h[?25l  [36mcreationTimestamp[m[35m:[m [31m"2026-02-04T19:00:54Z"[m
+  [36mgeneration[m[35m:[m [31m1[m[9;16H[K[10;1H  [36mlabels[m[35m:[m[10;10H[K[11;1H    r[11;6H[K[11;6H[?25h[?25l[36mrun[m[35m:[m new-pod
+  [36mname[m[35m:[m new-pod[12;16H[K[13;1H  [36mnamespace[m[35m:[m default[13;21H[K[14;1H  resourceVersi[14;16H[K[14;16H[?25h[?25l  [36mresourceVersion[m[35m:[m [31m"405451"[m
+  [36muid[m[35m:[m a93440bf-ad77-4d21-9602-d049c0610541[15;44H[K[16;1H[36mspec[m[35m:[m[16;6H[K[17;1H [17;2H[K[17;2H[?25h[?25l [36mcontainers[m[35m:[m
+  [38;5;130m- [m[36mimage[m[35m:[m nginx:latest[18;24H[K[19;1H    [36mimagePullPolicy[m[35m:[m Alway[19;27H[K[19;27H[?25h[?25l[75;1H[K[19;27Hs
+    [36mname[m[35m:[m new-pod[20;18H[K[21;1H[K[75;89H21,0-1[8CAll[21;1H[?25h[?25l[75;79H~@k[21;1H[75;79H   [20;17H[75;90H0,17 [20;17H[?25h[?25l[75;79H~@k[20;17H[75;79H   [19;17H[75;89H19[19;17H[?25h[?25l[75;79H~@k[19;17H[75;79H   [18;17H[75;90H8[18;17H[?25h[?25l[75;79H~@k[18;17H[75;79H   [17;13H[75;90H7,13[17;13H[?25h[?25l[75;79H~@k[17;13H[75;79H   [16;5H[75;90H6,5 [16;5H[?25h[?25l[75;79H~@k[16;5H[75;79H   [15;17H[75;90H5,17[15;17H[?25h[?25l[75;79H~@k[15;17H[75;79H   [14;17H[75;90H4[14;17H[?25h[?25l[75;79H~@k[14;17H[75;79H   [13;17H[75;90H3[13;17H[?25h[?25l[75;79H~@k[13;17H[75;79H   [12;15H[75;90H2,15[12;15H[?25h[?25l[75;79H~@k[12;15H[75;79H   [11;16H[75;90H1,16[11;16H[?25h[?25l[75;79H~@k[11;16H[75;79H   [10;9H[75;90H0,9 [10;9H[?25h[?25l[75;79H~@k[10;9H[75;79H   [9;15H[75;89H9,15[9;15H[?25h[?25l[75;79H~@k[9;15H[75;79H   [8;17H[75;89H8,17[8;17H[?25h[?25l[75;79H~@k[8;17H[75;79H   [7;17H[75;89H7[7;17H[?25h[?25l[75;79H~@k[7;17H[75;79H   [6;17H[75;89H6[6;17H[?25h[?25l[75;79H~@k[6;17H[75;79H   [5;17H[75;89H5[5;17H[?25h[?25l[75;79H^[[5;17H[75;79H  [5;17H[75;79H^[[5;17H[75;79H  [5;17H[?25h[?25l[75;79Hd[5;17H[?25h[?25l[75;80Hd[5;17H[75;79H  [5;5H[5;74r[74;1H
+[1;75r[74;1H[94m~                                                                                                         [m[75;89H[K[75;89H5,5[11CAll[5;5H[?25h[?25l[75;79Hd[5;5H[?25h[?25l[75;80Hd[5;5H[75;79H  [5;5H[5;74r[74;1H
+[1;75r[74;1H[94m~                                                                                                         [m[75;89H[K[75;89H5,5[11CAll[5;5H[?25h[?25l[75;79Hd[5;5H[?25h[?25l[75;80Hd[5;5H[75;79H  [5;3H[5;74r[74;1H
+[1;75r[74;1H[94m~                                                                                                         [m[75;89H[K[75;89H5,3[11CAll[5;3H[?25h[?25l[75;79Hd[5;3H[?25h[?25l[75;80Hd[5;3H[75;79H  [5;3H[5;74r[74;1H
+[1;75r[74;1H[94m~                                                                                                         [m[75;89H[K[75;89H5,3[11CAll[5;3H[?25h[?25l[75;79H~@k[5;3H[75;79H   [6;3H[75;89H6[6;3H[?25h[?25l[75;79H~@k[6;3H[75;79H   [5;3H[75;89H5[5;3H[?25h[?25l[75;79Hd[5;3H[?25h[?25l[75;80Hd[5;3H[75;79H  [5;3H[5;74r[74;1H
+[1;75r[74;1H[94m~                                                                                                         [m[75;89H[K[75;89H5,3[11CAll[5;3H[?25h[?25l[75;79H~@k[5;3H[75;79H   [4;3H[75;89H4[4;3H[?25h[?25l[75;79Hd[4;3H[?25h[?25l[75;80Hd[4;3H[75;79H  [4;3H[4;74r[74;1H
+[1;75r[74;1H[94m~                                                                                                         [m[75;89H[K[75;89H4,3[11CAll[4;3H[?25h[?25l[75;79H~@k[4;3H[75;79H   [5;3H[75;89H5[5;3H[?25h[?25l[75;79H~@k[5;3H[75;79H   [6;3H[75;89H6[6;3H[?25h[?25l[75;79H~@k[6;3H[75;79H   [5;3H[75;89H5[5;3H[?25h[?25l[75;79H~@k[5;3H[75;79H   [5;4H[75;91H4[5;4H[?25h[?25l[75;79H~@k[5;4H[75;79H   [5;5H[75;91H5[5;5H[?25h[?25l[75;79H~@k[5;5H[75;79H   [5;6H[75;91H6[5;6H[?25h[?25l[75;79H~@k[5;6H[75;79H   [5;7H[75;91H7[5;7H[?25h[?25l[75;79H~@k[5;7H[75;79H   [5;8H[75;91H8[5;8H[?25h[?25l[75;79H~@k[5;8H[75;79H   [5;9H[75;91H9[5;9H[?25h[?25l[75;79H~@k[5;9H[75;79H   [5;10H[75;91H10[5;10H[?25h[?25l[75;79H~@k[5;10H[75;79H   [5;11H[75;92H1[5;11H[?25h[?25l[75;79H~@k[5;11H[75;79H   [5;12H[75;92H2[5;12H[?25h[?25l[75;79H~@k[5;12H[75;79H   [4;9H[75;89H4,9 [4;9H[?25h[?25l[75;79H~@k[4;9H[75;79H   [3;9H[75;89H3[3;9H[?25h[?25l[75;79H~@k[3;9H[75;79H   [2;9H[75;89H2[2;9H[?25h[?25l[75;79H~@k[2;9H[75;79H   [1;12H[75;89H1,12[1;12H[?25h[?25l[75;79H~@k[1;12H[75;79H   [1;12H[?25h[?25l[75;79H~@k[1;12H[75;79H   [2;9H[75;89H2,9 [2;9H[?25h[?25l[75;89H3[3;9H[?25h[?25l[75;89H4[4;9H[?25h[?25l[75;89H5,12[5;12H[?25h[?25l[75;79H~@k[5;12H[75;79H   [6;12H[75;89H6[6;12H[?25h[?25l[75;89H7[7;12H[?25h[?25l[75;89H8[8;12H[?25h[?25l[75;89H9[9;12H[?25h[?25l[75;79H~@k[9;12H[75;79H   [10;5H[75;89H10,5[10;5H[?25h[?25l[75;79H~@k[10;5H[75;79H   [9;12H[75;89H9,12[9;12H[?25h[?25l[75;79H~@k[9;12H[75;79H   [8;12H[75;89H8[8;12H[?25h[?25l[75;79H~@k[8;12H[75;79H   [7;12H[75;89H7[7;12H[?25h[?25l[75;79H~@k[7;12H[75;79H   [6;12H[75;89H6[6;12H[?25h[?25l[75;79H~@k[6;12H[75;79H   [5;12H[75;89H5[5;12H[?25h[?25l[75;79H~@k[5;12H[75;79H   [5;11H[75;92H1[5;11H[?25h[?25l[75;79H~@k[5;11H[75;79H   [5;10H[75;92H0[5;10H[?25h[?25l[75;79H~@k[5;10H[75;79H   [5;9H[75;91H9 [5;9H[?25h[?25l[75;79H~@k[5;9H[75;79H   [5;8H[75;91H8[5;8H[?25h[?25l[75;79H~@k[5;8H[75;79H   [5;7H[75;91H7[5;7H[?25h[?25l[75;79H~@k[5;7H[75;79H   [5;6H[75;91H6[5;6H[?25h[?25l[75;79Hi[5;6H[75;79H [5;6H[75;1H[1m-- INSERT --[m[75;89H[K[75;89H5,6[11CAll[5;6H[?25h[?25l[75;91H7[5;7H[?25h[?25l[75;91H8[5;8H[?25h[?25l[35m:[m new-pod[5;16H[K[75;91H7[5;7H[?25h[?25l[35m:[m new-pod[5;15H[K[75;91H6[5;6H[?25h[?25l: new-pod[5;14H[K[75;91H5[5;5H[?25h[?25l[36ma[m[35m:[m new-pod[75;91H6[5;6H[?25h[?25l[36mp[m[35m:[m new-pod[75;91H7[5;7H[?25h[?25l[36mp[m[35m:[m new-pod[75;91H8[5;8H[?25h[?25l[75;91H9[5;9H[?25h[?25l[75;89H6[6;9H[?25h[?25l[75;89H5[5;9H[?25h[?25l[75;91H10[5;10H[?25h[?25l[75;92H1[5;11H[?25h[?25l[75;92H2[5;12H[?25h[?25l[75;92H3[5;13H[?25h[?25l[75;92H4[5;14H[?25h[?25l[75;92H5[5;15H[?25h[?25l[75;92H6[5;16H[?25h[?25l[75;92H7[5;17H[?25h[?25l[5;16H[K[75;92H6[5;16H[?25h[?25l[5;15H[K[75;92H5[5;15H[?25h[?25l[5;14H[K[75;92H4[5;14H[?25h[?25l[5;13H[K[75;92H3[5;13H[?25h[?25l[5;12H[K[75;92H2[5;12H[?25h[?25l[5;11H[K[75;92H1[5;11H[?25h[?25l[5;10H[K[75;92H0[5;10H[?25h[?25lt[75;92H1[5;11H[?25h[?25le[75;92H2[5;12H[?25h[?25ls[75;92H3[5;13H[?25h[?25lt[75;92H4[5;14H[?25h[?25l-[75;92H5[5;15H[?25h[?25lp[75;92H6[5;16H[?25h[?25lo[75;92H7[5;17H[?25h[?25ld[75;92H8[5;18H[?25h[?25l[75;89H6,16[6;16H[?25h[?25l[75;92H5[6;15H[?25h[?25l[75;92H4[6;14H[?25h[?25l[75;92H3[6;13H[?25h[?25l[75;92H2[6;12H[?25h[?25l[75;92H1[6;11H[?25h[?25l[75;92H2[6;12H[?25h[?25l-pod[6;15H[K[75;92H1[6;11H[?25h[?25l-pod[6;14H[K[75;92H0[6;10H[?25h[?25l-pod[6;13H[K[75;91H9 [6;9H[?25h[?25lt-pod[75;91H10[6;10H[?25h[?25le-pod[75;92H1[6;11H[?25h[?25ls-pod[75;92H2[6;12H[?25h[?25lt-pod[75;92H3[6;13H[?25h[?25l[75;89H7[7;13H[?25h[?25l[75;89H8[8;13H[?25h[75;1H[K[8;12H[?25l[75;79H^[[8;12H[75;79H  [8;13H[75;89H8,12[10CAll[8;12H[?25h[?25l[75;79Hd[8;12H[?25h[?25l[75;80Hd[8;12H[75;79H  [8;3H[8;74r[74;1H
+[1;75r[74;1H[94m~                                                                                                         [m[75;89H[K[75;89H8,3[11CAll[8;3H[?25h[?25l[75;79Hd[8;3H[?25h[?25l[75;80Hd[8;3H[75;79H  [8;1H[8;74r[74;1H
+[1;75r[74;1H[94m~                                                                                                         [m[75;89H[K[75;89H8,1[11CAll[8;1H[?25h[?25l[75;79H~@k[8;1H[75;79H   [7;1H[75;89H7[7;1H[?25h[?25l[75;79Hd[7;1H[?25h[?25l[75;80Hd[7;1H[75;79H  [7;1H[7;74r[74;1H
+[1;75r[74;1H[94m~                                                                                                         [m[75;89H[K[75;89H7,1[11CAll[7;1H[?25h[?25l[75;79H~@k[7;1H[75;79H   [8;1H[75;89H8[8;1H[?25h[?25l[75;79H~@k[8;1H[75;79H   [9;1H[75;89H9[9;1H[?25h[?25l[75;79H~@k[9;1H[75;79H   [9;2H[75;91H2[9;2H[?25h[?25l[75;79H~@k[9;2H[75;79H   [9;3H[75;91H3[9;3H[?25h[?25l[75;79H~@k[9;3H[75;79H   [9;4H[75;91H4[9;4H[?25h[?25l[75;79H~@k[9;4H[75;79H   [9;5H[75;91H5[9;5H[?25h[?25l[75;79H~@k[9;5H[75;79H   [9;6H[75;91H6[9;6H[?25h[?25l[75;79H~@k[9;6H[75;79H   [9;7H[75;91H7[9;7H[?25h[?25l[75;79H~@k[9;7H[75;79H   [9;8H[75;91H8[9;8H[?25h[?25l[75;79H~@k[9;8H[75;79H   [9;9H[75;91H9[9;9H[?25h[?25l[75;79H~@k[9;9H[75;79H   [9;10H[75;91H10[9;10H[?25h[?25l[75;79H~@k[9;10H[75;79H   [9;11H[75;92H1[9;11H[?25h[?25l[75;79H~@k[9;11H[75;79H   [9;12H[75;92H2[9;12H[?25h[?25l[75;79H~@k[9;12H[75;79H   [9;13H[75;92H3[9;13H[?25h[?25l[75;79H~@k[9;13H[75;79H   [9;14H[75;92H4[9;14H[?25h[?25l[75;79H~@k[9;14H[75;79H   [10;14H[75;89H10,14[10;14H[?25h[?25l[75;79H~@k[10;14H[75;79H   [11;14H[75;90H1[11;14H[?25h[?25l[75;79H^[[11;14H[75;79H  [11;14H[75;79H^[[11;14H[75;79H  [11;14H[?25h[?25l[75;79H~@k[11;14H[75;79H   [11;13H[75;93H3[11;13H[?25h[?25l[75;79H:[11;13H[75;79H[K[75;1H:[?25hwq[?25l[?2004l[>4;m"define-nginx-pod.yaml" [New] 12L, 171B written[23;2t[23;1t
+[?1004l[?2004l[?1l>[?1049l[23;0;0t[?25h[>4;m[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# cat define-nginx-pod.yaml 
+[?2004lapiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: test-pod
+  name: test-pod
+spec:
+  containers:
+  - image: nginx:latest
+    imagePullPolicy: Always
+    name: new-pod
+
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl [K[K[K[K[K[K[K[K# below command to create pod using definition file
+[?2004l[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# lune[K[K[K[Kkubectl get pod [K[K[K[K[K[K[K[Kcreate pod [1P [1P [1P [K[1P [1P [1P [1P [1P [1P a p p l y [C - f [C d e fine-nginx-pod.yaml 
+[?2004lpod/test-pod created
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl get po
+[?2004lNAME       READY   STATUS    RESTARTS   AGE
+new-pod    1/1     Running   0          22m
+nginx      1/1     Running   0          30m
+test-pod   1/1     Running   0          10s
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl get po[K[K[K all
+[?2004lNAME           READY   STATUS    RESTARTS   AGE
+pod/new-pod    1/1     Running   0          22m
+pod/nginx      1/1     Running   0          30m
+pod/test-pod   1/1     Running   0          23s
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   2d12h
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# delete pod [1@k[1@u[1@b[1@e[1@c[1@t[1@l[1@ [C[C[C[C[C[C[C[C[C[C[C[K[Ks[Kds
+[?2004lerror: resource(s) were provided, but no name was specified
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl delete pods[K --help
+[?2004lDelete resources by file names, stdin, resources and names, or by resources and label selector.
+
+ JSON and YAML formats are accepted. Only one type of argument may be specified: file names,
+resources and names, or resources and label selector.
+
+ Some resources, such as pods, support graceful deletion. These resources define a default period
+before they are forcibly terminated (the grace period) but you may override that value with the
+--grace-period flag, or pass --now to set a grace-period of 1. Because these resources often
+represent entities in the cluster, deletion may not be acknowledged immediately. If the node hosting
+a pod is down or cannot reach the API server, termination may take significantly longer than the
+grace period. To force delete a resource, you must specify the --force flag. Note: only a subset of
+resources support graceful deletion. In absence of the support, the --grace-period flag is ignored.
+
+ IMPORTANT: Force deleting pods does not wait for confirmation that the pod's processes have been
+terminated, which can leave those processes running until the node detects the deletion and
+completes graceful deletion. If your processes use shared storage or talk to a remote API and depend
+on the name of the pod to identify themselves, force deleting those pods may result in multiple
+processes running on different machines using the same identification which may lead to data
+corruption or inconsistency. Only force delete pods when you are sure the pod is terminated, or if
+your application can tolerate multiple copies of the same pod running at once. Also, if you force
+delete pods, the scheduler may place new pods on those nodes before the node has released those
+resources and causing those pods to be evicted immediately.
+
+ Note that the delete command does NOT do resource version checks, so if someone submits an update
+to a resource right when you submit a delete, their update will be lost along with the rest of the
+resource.
+
+ After a CustomResourceDefinition is deleted, invalidation of discovery cache may take up to 6
+hours. If you don't want to wait, you might want to run "kubectl api-resources" to refresh the
+discovery cache.
+
+Examples:
+  # Delete a pod using the type and name specified in pod.json
+  kubectl delete -f ./pod.json
+  
+  # Delete resources from a directory containing kustomization.yaml - e.g. dir/kustomization.yaml
+  kubectl delete -k dir
+  
+  # Delete resources from all files that end with '.json'
+  kubectl delete -f '*.json'
+  
+  # Delete a pod based on the type and name in the JSON passed into stdin
+  cat pod.json | kubectl delete -f -
+  
+  # Delete pods and services with same names "baz" and "foo"
+  kubectl delete pod,service baz foo
+  
+  # Delete pods and services with label name=myLabel
+  kubectl delete pods,services -l name=myLabel
+  
+  # Delete a pod with minimal delay
+  kubectl delete pod foo --now
+  
+  # Force delete a pod on a dead node
+  kubectl delete pod foo --force
+  
+  # Delete all pods
+  kubectl delete pods --all
+  
+  # Delete all pods only if the user confirms the deletion
+  kubectl delete pods --all --interactive
+
+Options:
+    --all=false:
+	Delete all resources, in the namespace of the specified resource types.
+
+    -A, --all-namespaces=false:
+	If present, list the requested object(s) across all namespaces. Namespace in current
+	context is ignored even if specified with --namespace.
+
+    --cascade='background':
+	Must be "background", "orphan", or "foreground". Selects the deletion cascading strategy
+	for the dependents (e.g. Pods created by a ReplicationController). Defaults to background.
+
+    --dry-run='none':
+	Must be "none", "server", or "client". If client strategy, only print the object that
+	would be sent, without sending it. If server strategy, submit server-side request without
+	persisting the resource.
+
+    --field-selector='':
+	Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector
+	key1=value1,key2=value2). The server only supports a limited number of field queries per
+	type.
+
+    -f, --filename=[]:
+	containing the resource to delete.
+
+    --force=false:
+	If true, immediately remove resources from API and bypass graceful deletion. Note that
+	immediate deletion of some resources may result in inconsistency or data loss and requires
+	confirmation.
+
+    --grace-period=-1:
+	Period of time in seconds given to the resource to terminate gracefully. Ignored if
+	negative. Set to 1 for immediate shutdown. Can only be set to 0 when --force is true
+	(force deletion).
+
+    --ignore-not-found=false:
+	Treat "resource not found" as a successful delete. Defaults to "true" when --all is
+	specified.
+
+    -i, --interactive=false:
+	If true, delete resource only when user confirms.
+
+    -k, --kustomize='':
+	Process a kustomization directory. This flag can't be used together with -f or -R.
+
+    --now=false:
+	If true, resources are signaled for immediate shutdown (same as --grace-period=1).
+
+    -o, --output='':
+	Output mode. Use "-o name" for shorter output (resource/name).
+
+    --raw='':
+	Raw URI to DELETE to the server.  Uses the transport specified by the kubeconfig file.
+
+    -R, --recursive=false:
+	Process the directory used in -f, --filename recursively. Useful when you want to manage
+	related manifests organized within the same directory.
+
+    -l, --selector='':
+	Selector (label query) to filter on, supports '=', '==', '!=', 'in', 'notin'.(e.g. -l
+	key1=value1,key2=value2,key3 in (value3)). Matching objects must satisfy all of the
+	specified label constraints.
+
+    --timeout=0s:
+	The length of time to wait before giving up on a delete, zero means determine a timeout
+	from the size of the object
+
+    --wait=true:
+	If true, wait for resources to be gone before returning. This waits for finalizers.
+
+Usage:
+  kubectl delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)]) [options]
+
+Use "kubectl options" for a list of global command-line options (applies to all commands).
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl delete pod --help[K[K[K[K[K- [Kall
+[?2004lpod "new-pod" deleted from default namespace
+pod "nginx" deleted from default namespace
+pod "test-pod" deleted from default namespace
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# kubectl delete pod --allhelps[K[4Pget all[1Ppo
+[?2004lNo resources found in default namespace.
+[?2004h]0;root@k3smaster: /home/k8s-practice/pod[01;32mroot@k3smaster[00m:[01;34m/home/k8s-practice/pod[00m# exit
+[?2004lexit
+
+Script done on 2026-02-04 19:40:17+00:00 [COMMAND_EXIT_CODE="0"]
